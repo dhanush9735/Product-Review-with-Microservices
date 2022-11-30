@@ -1,0 +1,53 @@
+#server:
+#  port: 9898
+#
+#spring:
+#  application:
+#    name: API-GATEWAY
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: PRODUCT-SERVICE
+#          uri:  http://localhost:9696/
+#          predicates:
+#            - Path=/product/**
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                name: PRODUCT-SERVICE
+#                fallbackuri: forward:/productFallback
+#        - id: FEEDBACKS-SERVICE
+#          uri: http://localhost:9697/
+#          predicates:
+#            - Path=/feedbacks/**
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                name: FEEDBACKS-SERVICE
+#                fallbackuri: forward:/feedbacksFallback
+#
+#
+#eureka:
+#  client:
+#    instance:
+#      hostname: localhost
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#    fetch-registry: 'true'
+#    register-with-eureka: 'true'
+#
+#
+#hystrix:
+#  command:
+#    fallbackcmd:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 4000
+#
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "/actuator/hystrix.stream"
